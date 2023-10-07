@@ -10,16 +10,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <img
-          src="starry-bg.jpeg"
-          className="fixed -z-10 h-[100vh] opacity-[0.1]"
-        />
-        <img src="bg.png" className="fixed -z-10 opacity-[0.8]" />
+    <ClerkProvider>
+       <html lang="en">
+        <body className={inter.className}>
+          <img
+            src="starry-bg.jpeg"
+            className="fixed -z-10 h-[100vh] opacity-[0.1]"
+          />
+          <img src="bg.png" className="fixed -z-10 opacity-[0.8]" />
 
-        {children}
-      </body>
-    </html>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
+
+import { ClerkProvider } from '@clerk/nextjs'

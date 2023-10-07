@@ -3,7 +3,7 @@
 import Image from "next/image";
 import {useDropzone} from 'react-dropzone'
 import { useCallback, useState } from "react";
-import DragDrop from "./components/Drag";
+import AuthOptions from "./components/AuthOptions";
 
 export default function Home() {
 
@@ -11,8 +11,13 @@ export default function Home() {
 
   function uploadFile(e, n) {
     console.log(n)
-    console.log(e.target)
+    console.log(e.target.files[0])
   }
+
+  const onDrop = useCallback(acceptedFiles => {
+    console.log(acceptedFiles)
+  }, [])
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
 
   return (
@@ -25,10 +30,7 @@ export default function Home() {
           className="w-[20vw]"
         />
         <div className="flex flex-row items-center justify-center gap-8">
-          <p className="text-[#ABABAB]">Log In</p>
-          <div className="btn bg-[#3C77F7] px-[1.5vw] p-[1vw] flex items-center justify-center text-[#E6E6E6]">
-            Sign Up
-          </div>
+          <AuthOptions />
         </div>
       </div>
       <div className="flex flex-col items-center justify-center mt-[3vh]">
@@ -43,7 +45,14 @@ export default function Home() {
           <input onChange={(e) => uploadFile(e, "input")} type="file" id="actual-btn" hidden/>
           <label className="btn text-[1.2vw] bg-[#3C77F7] px-[1.5vw] p-[1vw] flex items-center justify-center text-[#E6E6E6] cursor-pointer" htmlFor="actual-btn">Choose File</label>
         </div>
-        <DragDrop file={file} setFile={setFile} />
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          {
+            isDragActive ?
+              <p>Drop the files here ...</p> :
+              <p>Drag 'n' drop some files here, or click to select files</p>
+          }
+        </div>
       </div>
       <img
         src="/shapes-right.png"
