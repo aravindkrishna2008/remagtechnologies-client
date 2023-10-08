@@ -9,18 +9,70 @@ import axios from "axios";
 export default function Home() {
   const [file, setFile] = useState();
 
-  const uploadFile = async (e, n) => {
-    console.log(n);
-    const formData = new FormData();
-    formData.append("image", e.target.files[0]);
-    try {
-      await axios.post(`http://127.0.0.1:5000/upload-image`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-    } catch (err) {
-      console.error(err.response.data);
+  const uploadFile = (e, n) => {
+    console.log("hi");
+
+    if (e > 1) {
+      setFile(e.target.files[-1]);
+    } else {
+      setFile(e.target.files[0]);
     }
+    // setFile(e.target.files[0]);
+    console.log(n);
+    // console.log(file.name);
   };
+
+  const processFile = async () => {
+    // send new form data with file to http://f278-73-170-22-163.ngrok-free.app/upload-image
+    console.log(file);
+    const formData = new FormData();
+    formData.append("image", file);
+    console.log(formData);
+    const res = await axios.post(
+      "http://f278-73-170-22-163.ngrok-free.app/upload-image",
+      formData
+    );
+    console.log(res);
+  };
+
+  const content = file ? (
+    <p className="italic text-[#ABABAB] mt-5 tracking-[2px] text-[1.2vw]">
+      {file.name}
+    </p>
+  ) : (
+    <p className="italic text-[#ABABAB] mt-5 tracking-[2px] text-[1.2vw]">
+      or drop a file
+    </p>
+  );
+
+  const uploadButton = file ? (
+    <>
+      <button
+        className="btn text-[1.2vw] hover:bg-blue-800 transition-all duration-200 bg-[#3C77F7] px-[1.5vw] p-[1vw] flex items-center justify-center text-[#E6E6E6] cursor-pointer"
+        htmlFor="actual-btn"
+        onClick={async () => {
+          await processFile();
+        }}
+      >
+        Process Now!
+      </button>
+    </>
+  ) : (
+    <>
+      <input
+        onChange={(e) => uploadFile(e, "input")}
+        type="file"
+        id="actual-btn"
+        hidden
+      />
+      <label
+        className="btn text-[1.2vw] bg-[#3C77F7] px-[1.5vw] p-[1vw] flex items-center justify-center text-[#E6E6E6] cursor-pointer"
+        htmlFor="actual-btn"
+      >
+        Choose File
+      </label>
+    </>
+  );
 
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
@@ -49,22 +101,13 @@ export default function Home() {
           style={{ border: "1px dashed rgba(255, 255, 255, 0.35)" }}
         >
           <img src="/Subtract.png" className="w-[45%]" />
-          <input
-            onChange={(e) => uploadFile(e, "input")}
-            type="file"
-            id="actual-btn"
-            hidden
-          />
-          <label
-            className="btn text-[1.2vw] bg-[#3C77F7] px-[1.5vw] p-[1vw] flex items-center justify-center text-[#E6E6E6] cursor-pointer"
-            htmlFor="actual-btn"
-          >
-            Choose File
-          </label>
+          {uploadButton}
         </div>
-        <p className="italic text-[#ABABAB] mt-5 tracking-[2px] text-[1.2vw]">
+        {/* if file is there change text to file name */}
+        {content}
+        {/* <p className="italic text-[#ABABAB] mt-5 tracking-[2px] text-[1.2vw]">
           or drop a file
-        </p>
+        </p> */}
       </div>
       <img
         src="/shapes-right.png"
