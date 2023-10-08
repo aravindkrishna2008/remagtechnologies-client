@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useState } from "react";
 import { Chart } from "react-chartjs-2";
 
 import {
@@ -16,7 +17,7 @@ import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 
 import Graph from "./graph/main";
-
+import HoverBox from './graph/hover'
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -56,10 +57,13 @@ export default function Home() {
             </h2>
             <img src="/question.png" height={100} className="w-[12%]" />
           </div>
-          <div className="flex flex-row items-end gap-2">
-            <h1 className="data-nums">0.212</h1>
-            <p className="text-[#666] mb-[5%] text-[1vw]">km2 per second</p>
-          </div>
+          <HoverBox 
+              opt1={<div className="flex flex-row items-end gap-2">
+              <h1 className="data-nums">0.212</h1>
+              <p className="text-[#666] mb-[5%] text-[1vw]">km2 per second</p>
+            </div>} 
+              opt2={<p className="group-hover:transition group-hover:ease-in-out text-[#666] mb-[20%] text-[1vw]">Hello World 21</p>}
+            />
         </div>
         <img src="/Line2.png" className="w-[40vw] -mt-[16vh] ml-[20vw]" />
         <div className="gray-btn h-[18vh] w-[22.5vw] mr-[37.5vw] flex flex-col p-[2vw] pb-[2vw] ml-[80vw] -mt-[80px] justify-center">
@@ -70,10 +74,13 @@ export default function Home() {
             </h2>
             <img src="/question.png" height={100} className="w-[12%]" />
           </div>
-          <div className="flex flex-row items-end gap-2">
-            <h1 className="data-nums">-1.203</h1>
-            <p className="text-[#666] mb-[5%] text-[1vw]">nanoTeslas</p>
-          </div>
+          <HoverBox 
+              opt1={ <div className="flex flex-row items-end gap-2">
+              <h1 className="data-nums">-1.203</h1>
+              <p className="text-[#666] mb-[5%] text-[1vw]">nanoTeslas</p>
+            </div>} 
+              opt2={<p className="group-hover:transition group-hover:ease-in-out text-[#666] mb-[20%] text-[1vw]">Hello World 2</p>}
+            />
         </div>
         <img src="/Line3.png" className="w-[18vw] -mt-[10vh] ml-[8vw]" />
         <div className="gray-btn h-[30vh] w-[24vw] mr-[37.5vw] flex flex-col p-[2vw] pb-[2vw] justify-center -mt-[20vh] ml-[8vw]">
@@ -84,9 +91,10 @@ export default function Home() {
             </h2>
             <img src="/question.png" height={100} className="w-[12%]" />
           </div>
-          <div className="h-[100%]">
-            <Graph data2={[4, 8, 12, 16, 20, 25, 30]} />
-          </div>
+          <HoverBox 
+            opt1={<Graph className="group-hover:transition group-hover:ease-in-out" data2={[4, 8, 12, 16, 20, 25, 30]} />} 
+            opt2={<p className="h-[200vh] group-hover:transition group-hover:ease-in-out text-[#666] mb-[20%] text-[1vw]">Hello World 1</p>}
+          />
         </div>
       </div>
     </div>
