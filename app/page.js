@@ -1,24 +1,23 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import {useDropzone} from 'react-dropzone'
+import { useDropzone } from "react-dropzone";
 import { useCallback, useState } from "react";
 import AuthOptions from "./components/AuthOptions";
+const axios = require("axios");
 
 export default function Home() {
-
-  const [file, setFile] = useState()
+  const [file, setFile] = useState();
 
   function uploadFile(e, n) {
-    console.log(n)
-    console.log(e.target.files[0])
+    console.log(n);
+    console.log(e.target.files[0]);
   }
 
-  const onDrop = useCallback(acceptedFiles => {
-    console.log(acceptedFiles)
-  }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
-
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
     <div className=" p-[4.722vw] r">
@@ -37,23 +36,27 @@ export default function Home() {
         <h1 className="title text-[4vw] leading-[4.2vw] flex items-center justify-center font-bold text-center p-4 w-[55vw]">
           Upload a reconnection graph for analysis.
         </h1>
-        <a href="/result">World </a>
         <div
           className="w-[20vw] h-[20vw] flex flex-col items-center justify-center mt-[3vh] rounded-[27px] font-bold"
           style={{ border: "1px dashed rgba(255, 255, 255, 0.35)" }}
         >
           <img src="/Subtract.png" className="w-[45%]" />
-          <input onChange={(e) => uploadFile(e, "input")} type="file" id="actual-btn" hidden/>
-          <label className="btn text-[1.2vw] bg-[#3C77F7] px-[1.5vw] p-[1vw] flex items-center justify-center text-[#E6E6E6] cursor-pointer" htmlFor="actual-btn">Choose File</label>
+          <input
+            onChange={(e) => uploadFile(e, "input")}
+            type="file"
+            id="actual-btn"
+            hidden
+          />
+          <label
+            className="btn text-[1.2vw] bg-[#3C77F7] px-[1.5vw] p-[1vw] flex items-center justify-center text-[#E6E6E6] cursor-pointer"
+            htmlFor="actual-btn"
+          >
+            Choose File
+          </label>
         </div>
-        <div {...getRootProps()}>
-          <input {...getInputProps()} />
-          {
-            isDragActive ?
-              <p>Drop the files here ...</p> :
-              <p>Drag 'n' drop some files here, or click to select files</p>
-          }
-        </div>
+        <p className="italic text-[#ABABAB] mt-5 tracking-[2px] text-[1.2vw]">
+          or drop a file
+        </p>
       </div>
       <img
         src="/shapes-right.png"

@@ -1,4 +1,33 @@
+"use client";
 import Image from "next/image";
+import { Chart } from "react-chartjs-2";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { faker } from "@faker-js/faker";
+
+import Graph from "./graph/main";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+import AuthOptions from "../components/AuthOptions";
 
 export default function Home() {
   return (
@@ -11,10 +40,7 @@ export default function Home() {
           className="w-[20vw]"
         />
         <div className="flex flex-row items-center justify-center gap-8">
-          <p className="text-[#ABABAB]">Log In</p>
-          <div className="btn bg-[#3C77F7] px-[1.5vw] p-[1vw] flex items-center justify-center text-[#E6E6E6]">
-            Sign Up
-          </div>
+          <AuthOptions />
         </div>
       </div>
       <div className="flex flex-col items-center justify-center mt-[3vh]">
@@ -49,27 +75,20 @@ export default function Home() {
             <p className="text-[#666] mb-[5%] text-[1vw]">nanoTeslas</p>
           </div>
         </div>
-        <img src="/Line3.png" className="w-[18vw] -mt-[10vh] ml-[10vw]" />
-        <div className="gray-btn h-[18vh] w-[20vw] mr-[32vw] flex flex-col items-center justify-center -mt-[20vh] ml-[8vw]">
-          hi
+        <img src="/Line3.png" className="w-[18vw] -mt-[10vh] ml-[8vw]" />
+        <div className="gray-btn h-[30vh] w-[24vw] mr-[37.5vw] flex flex-col p-[2vw] pb-[2vw] justify-center -mt-[20vh] ml-[8vw]">
+          <div className="flex flex-row w-[100%] gap-[2px] items-center justify-center mt-[1.6%]">
+            <img src="/warning.png" height={100} className="w-[15%]" />
+            <h2 className="text-[#B3B3B3] text-[1.2vw] w-[100%] font-bold mb-[2.5%]">
+              Reconnection Severity
+            </h2>
+            <img src="/question.png" height={100} className="w-[12%]" />
+          </div>
+          <div className="h-[100%]">
+            <Graph data2={[4, 8, 12, 16, 20, 25, 30]} />
+          </div>
         </div>
       </div>
-      <img
-        src="/shapes-right.png"
-        className="absolute top-[75%] left-[15%] w-[250px]"
-      />
-      <img
-        src="/shapes-left.png"
-        className="absolute top-[75%] right-[30%] w-[200px]"
-      />{" "}
-      <img
-        src="/shapes-right.png"
-        className="absolute top-[160%] left-[30%] w-[250px]"
-      />
-      <img
-        src="/shapes-left.png"
-        className="absolute top-[160%] right-[15%] w-[200px]"
-      />{" "}
     </div>
   );
 }
