@@ -54,6 +54,22 @@ export default function Home() {
           hi
         </div>
       </div>
+      <img
+        src="/shapes-right.png"
+        className="absolute top-[75%] left-[15%] w-[250px]"
+      />
+      <img
+        src="/shapes-left.png"
+        className="absolute top-[75%] right-[30%] w-[200px]"
+      />{" "}
+      <img
+        src="/shapes-right.png"
+        className="absolute top-[160%] left-[30%] w-[250px]"
+      />
+      <img
+        src="/shapes-left.png"
+        className="absolute top-[160%] right-[15%] w-[200px]"
+      />{" "}
     </div>
   );
 }
