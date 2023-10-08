@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { ClerkProvider } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,9 +16,9 @@ export default function RootLayout({ children }) {
         <body className={inter.className}>
           <img
             src="starry-bg.jpeg"
-            className="fixed -z-10 h-[100vh] opacity-[0.1]"
+            className="fixed -z-10 h-[100vh] w-[100vw] opacity-[0.1]"
           />
-          <img src="bg.png" className="fixed -z-10 opacity-[0.8]" />
+          <img src="bg.png" className="fixed h-screen w-screen -z-10 opacity-[0.8]" />
 
           {children}
         </body>
@@ -26,4 +27,3 @@ export default function RootLayout({ children }) {
   );
 }
 
-import { ClerkProvider } from '@clerk/nextjs'
