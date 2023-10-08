@@ -37,6 +37,7 @@ export default function Home() {
         <h1 className="title text-[4vw] leading-[4.2vw] flex items-center justify-center font-bold text-center p-4 w-[55vw]">
           Upload a reconnection graph for analysis.
         </h1>
+        <a href="/result">World </a>
         <div
           className="w-[20vw] h-[20vw] flex flex-col items-center justify-center mt-[3vh] rounded-[27px] font-bold"
           style={{ border: "1px dashed rgba(255, 255, 255, 0.35)" }}
