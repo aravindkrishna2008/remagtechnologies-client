@@ -23,7 +23,7 @@ ChartJS.register(
   Legend
 );
 
-export default function Graph({ data2 }) {
+export default function Graph({ data2, className }) {
   const options = {
     responsive: true,
     plugins: {},
@@ -43,5 +43,5 @@ export default function Graph({ data2 }) {
       },
     ],
   };
-  return <Line className="h-[200vh]" options={options} data={data} />;
+  return <Line className={`h-[200vh] ${className}`} options={options} data={data} />;
 }

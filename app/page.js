@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useState } from "react";
 import AuthOptions from "./components/AuthOptions";
-const axios = require("axios");
+import axios from 'axios'
 
 export default function Home() {
   const [file, setFile] = useState();
