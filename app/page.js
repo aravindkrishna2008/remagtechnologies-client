@@ -4,20 +4,23 @@ import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useState } from "react";
 import AuthOptions from "./components/AuthOptions";
-import axios from 'axios'
+import axios from "axios";
 
 export default function Home() {
   const [file, setFile] = useState();
 
-
-  const sendData = async () => {
-    
-  }
-
-  function uploadFile(e, n) {
+  const uploadFile = async (e, n) => {
     console.log(n);
-    console.log(e.target.files[0]);
-  }
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    try {
+      await axios.post(`http://127.0.0.1:5000/upload-image`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    } catch (err) {
+      console.error(err.response.data);
+    }
+  };
 
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
