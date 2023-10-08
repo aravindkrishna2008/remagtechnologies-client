@@ -5,9 +5,11 @@ import { useDropzone } from "react-dropzone";
 import { useCallback, useState } from "react";
 import AuthOptions from "./components/AuthOptions";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [file, setFile] = useState();
+  const router = useRouter();
 
   const uploadFile = (e, n) => {
     console.log("hi");
@@ -32,7 +34,9 @@ export default function Home() {
       "http://f278-73-170-22-163.ngrok-free.app/upload-image",
       formData
     );
-    console.log(res);
+    router.push(`/result`, {
+      query: res.data
+    })
   };
 
   const content = file ? (
