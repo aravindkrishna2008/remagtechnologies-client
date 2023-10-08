@@ -9,6 +9,11 @@ const axios = require("axios");
 export default function Home() {
   const [file, setFile] = useState();
 
+
+  const sendData = async () => {
+    
+  }
+
   function uploadFile(e, n) {
     console.log(n);
     console.log(e.target.files[0]);
