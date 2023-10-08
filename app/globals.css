@@ -32,3 +32,18 @@ body {
     0px 9.35407px 9.35407px 0px #2d2d2d inset,
     0px -9.35407px 9.35407px 0px #1f1f1f inset;
 }
+
+.data-nums {
+  text-shadow: 0px 13.133333206176758px 26.266666412353516px
+    rgba(49, 48, 48, 0.25);
+  /* font-family: Inter; */
+  /* margin-top: -1.6%; */
+  margin-left: 2%;
+  font-size: 3.6vw;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: linear-gradient(180deg, #fff 0%, #ccc8c8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
