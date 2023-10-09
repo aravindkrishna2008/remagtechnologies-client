@@ -32,7 +32,9 @@ export default function Home() {
   const [graphHover, setGraphHover] = useState(false);
   const [reconnectionRateHover, setReconnectionRateHover] = useState(false);
   const [bzHover, setBzHover] = useState(false);
-  const [maxSeverity, setMaxSeverity] = useState(0);
+  // const [, setMaxSeverity] = useState(0);
+
+  let maxSeverity = 0;
   const resData = useRouter().query;
   // console.log(getData());
   let data = localStorage.getItem("data");
@@ -49,20 +51,31 @@ export default function Home() {
     // setMaxSeverity(calculateMaxSeverity());
   }
 
-  const calculateMaxSeverity = () => {
-    if (severityValues.length === 0) {
-      return 0; // Return 0 if the array is empty
+  let avgReconrate = 0;
+
+  for (let i = 0; i < reconrateValues.length; i++) {
+    avgReconrate += reconrateValues[i];
+  }
+
+  avgReconrate /= reconrateValues.length;
+  console.log(avgReconrate);
+
+  // round to 3 decimal places
+  avgReconrate = Math.round((avgReconrate + Number.EPSILON) * 10000) / 10000;
+
+  // find max severity values as a number
+
+  function calculateMaxSeverity() {
+    let max = 0;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].severity > max) {
+        max = data[i].severity;
+      }
     }
-    return Math.max(...severityValues); // Find the maximum value in the array
-  };
+    return max;
+  }
 
-  // Call the function to get the maximum severity value
-
-  // useEffect(() => {
-  //   reconrateValues = data.map((item) => item.reconrate);
-  // }, []);
-
-  console.log(reconrateValues);
+  maxSeverity = calculateMaxSeverity();
 
   return (
     <div className=" p-[4.722vw] r">
@@ -109,7 +122,7 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-row items-end gap-2">
-              <h1 className="data-nums">0.212</h1>
+              <h1 className="data-nums">{avgReconrate}</h1>
               <p className="text-[#666] mb-[5%] text-[1vw]">(unitless)</p>
             </div>
           </div>
@@ -156,7 +169,7 @@ export default function Home() {
             <div className="flex flex-row w-[100%] gap-[2px] items-center justify-center mt-[1.6%]">
               <img src="/magnet.png" height={100} className="w-[15%]" />
               <h2 className="text-[#B3B3B3] text-[1.2vw] w-[100%] font-bold mb-[2.5%]">
-                Bz (IMF Magnitude)
+                Maximum Severity
               </h2>
               <img
                 src="/question.png"
@@ -171,8 +184,8 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-row items-end gap-2">
-              <h1 className="data-nums">{maxSeverity}</h1>
-              <p className="text-[#666] mb-[5%] text-[1vw]">nanoTeslas</p>
+              <h1 className="data-nums">{maxSeverity}/5</h1>
+              <p className="text-[#666] mb-[5%] text-[1vw]">severity scale</p>
             </div>
           </div>
         ) : (
@@ -183,7 +196,7 @@ export default function Home() {
             <div className="flex flex-row w-[100%] gap-[2px] items-center justify-center mt-[1.6%]">
               <img src="/magnet.png" height={100} className="w-[15%]" />
               <h2 className="text-[#B3B3B3] text-[1.2vw] w-[100%] font-bold mb-[2.5%]">
-                Reconnection Rate
+                Maximum Severity
               </h2>
               <img
                 src="/question.png"
@@ -198,18 +211,22 @@ export default function Home() {
               />
             </div>
             <p className=" group-hover:transition group-hover:ease-in-out text-[#666]  0 mb-1 text-[1vw]">
-              The Reconnection Rate measures the merging of the Geomagnetic
-              field and IMF in an indefinite cycle. A low Reconnection Rate can
-              allow solar particles to penetrate Earth&apos;s atmosphere.
+              The maximum severity of a potential solar storm in the inputted
+              graph. This is the worst you can expect given the data. See
+              geomagnetic storms in
+              <a href="https://www.swpc.noaa.gov/noaa-scales-explanation">
+                https://www.swpc.noaa.gov/noaa-scales-explanation
+              </a>{" "}
+              for specific details
             </p>
           </div>
         )}
 
         <img src="/Line3.png" className="w-[18vw] -mt-[10vh] ml-[8vw]" />
         {!graphHover ? (
-          <div className=" gray-btn h-[30vh] w-[24vw] mr-[37.5vw] flex flex-col p-[2vw] pb-[2vw] justify-center -mt-[20vh] ml-[8vw]   ">
+          <div className=" gray-btn h-[50vh] w-[40vw] mr-[37.5vw] flex flex-col p-[2vw] pb-[2vw] justify-center -mt-[20vh] -ml-[6vw]   ">
             <div className="flex flex-row w-[100%] gap-[2px] items-center justify-center mt-[1.6%]  ">
-              <img src="/warning.png" height={100} className="w-[15%]" />
+              <img src="/warning.png" height={100} className="w-[8%]" />
               <h2 className="text-[#B3B3B3] text-[1.2vw] w-[100%] font-bold mb-[2.5%]">
                 Reconnection Severity
               </h2>
@@ -217,7 +234,7 @@ export default function Home() {
               <img
                 src="/question.png"
                 height={100}
-                className={`w-[12%] transition  ${graphHover ? "hovered" : ""}`}
+                className={`w-[8%] transition  ${graphHover ? "hovered" : ""}`}
                 onMouseEnter={() => setGraphHover(true)}
                 onMouseLeave={() => {
                   setTimeout(() => {
@@ -226,16 +243,18 @@ export default function Home() {
                 }}
               />
             </div>
-
-            <Graph
-              className=" group-hover:transition ease-in-out h-[40%]  "
-              data2={reconrateValues}
-              data3={severityValues}
-            />
+            <div className="w-[25vw]">
+              <Graph
+                width={"30%"}
+                className=" group-hover:transition ease-in-out  h-[30vh]  "
+                data2={reconrateValues}
+                data3={severityValues}
+              />
+            </div>
           </div>
         ) : (
           <div
-            className=" gray-btn h-[44vh] w-[24vw] mr-[37.5vw] flex flex-col p-[2vw] pb-[2vw] justify-center -mt-[20vh] ml-[8vw]  "
+            className=" gray-btn h-[60vh] w-[40vw] mr-[37.5vw] flex flex-col p-[2vw] pb-[2vw] justify-center -mt-[20vh] -ml-[6vw]   "
             onMouseLeave={() => {
               setTimeout(() => {
                 setGraphHover(false);
@@ -243,14 +262,14 @@ export default function Home() {
             }}
           >
             <div className="flex flex-row w-[100%] gap-[2px] items-center justify-center mt-[1.6%]">
-              <img src="/warning.png" height={100} className="w-[15%]" />
+              <img src="/warning.png" height={100} className="w-[8%]" />
               <h2 className="text-[#B3B3B3] text-[1.2vw] w-[100%] font-bold mb-[2.5%]">
                 Reconnection Severity
               </h2>
               <img
                 src="/question.png"
                 height={100}
-                className={`w-[12%] ${graphHover ? "hovered" : ""}`}
+                className={`w-[8%] ${graphHover ? "hovered" : ""}`}
                 onMouseEnter={() => setGraphHover(true)}
               />
             </div>
@@ -259,12 +278,14 @@ export default function Home() {
               Rate depending on the IMF. When the Bz component stays below 20 nT
               consistently, it signals a potential solar storm.
             </p>
-
-            <Graph
-              className=" group-hover:transition ease-in-out h-[40%]  "
-              data2={reconrateValues}
-              data3={severityValues}
-            />
+            <div className="w-[25vw]">
+              <Graph
+                width={"30%"}
+                className=" group-hover:transition ease-in-out  h-[30vh]  "
+                data2={reconrateValues}
+                data3={severityValues}
+              />
+            </div>
           </div>
         )}
       </div>
