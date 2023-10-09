@@ -44,7 +44,7 @@ export default function Home() {
 
   for (let i = 0; i < data.length; i++) {
     reconrateValues.push(data[i].reconrate);
-    severityValues.push(data[i].severity);
+    severityValues.push(data[i].severity / 5);
   }
 
   // useEffect(() => {
