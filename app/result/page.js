@@ -109,7 +109,7 @@ export default function Home() {
             <p className=" group-hover:transition group-hover:ease-in-out text-[#666]  0 mb-1 text-[1vw]">
               The Reconnection Rate measures the merging of the Geomagnetic
               field and IMF in an indefinite cycle. A low Reconnection Rate can
-              allow solar particles to penetrate Earth's atmosphere.
+              allow solar particles to penetrate Earth&apos;s atmosphere.
             </p>
           </div>
         )}
@@ -171,7 +171,7 @@ export default function Home() {
             <p className=" group-hover:transition group-hover:ease-in-out text-[#666]  0 mb-1 text-[1vw]">
               The Reconnection Rate measures the merging of the Geomagnetic
               field and IMF in an indefinite cycle. A low Reconnection Rate can
-              allow solar particles to penetrate Earth's atmosphere.
+              allow solar particles to penetrate Earth&apos;s atmosphere.
             </p>
           </div>
         )}
