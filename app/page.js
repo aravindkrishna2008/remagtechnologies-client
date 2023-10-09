@@ -6,10 +6,15 @@ import { useCallback, useState } from "react";
 import AuthOptions from "./components/AuthOptions";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+// import { setData, getData } from "./globaldata";
 
 export default function Home() {
   const [file, setFile] = useState();
+  const [data, setData] = useState();
+
   const router = useRouter();
+
+  let a = null;
 
   const uploadFile = (e, n) => {
     console.log("hi");
@@ -34,9 +39,9 @@ export default function Home() {
       "http://f278-73-170-22-163.ngrok-free.app/upload-image",
       formData
     );
-    router.push(`/result`, {
-      query: res.data
-    })
+    // console.log(res.data);
+    setData(res.data);
+    localStorage.setItem("data", JSON.stringify(res.data));
   };
 
   const content = file ? (
@@ -56,6 +61,10 @@ export default function Home() {
         htmlFor="actual-btn"
         onClick={async () => {
           await processFile();
+          // console.log(a);
+          router.push(`/result`, {
+            query: a,
+          });
         }}
       >
         Process Now!

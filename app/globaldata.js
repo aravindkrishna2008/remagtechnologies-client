@@ -1,6 +1,8 @@
-// function to store data so it can be used in all files
+// // function to store data so it can be used in all files
+// export const setData = (data) => {
+//   a = localStorage.setItem("data", data);
+// };
 
-import React, { useState, createContext } from "react";
-
-const [data, setData] = useState();
-
+// export const getData = () => {
+//   return localStorage.getItem("data");
+// };

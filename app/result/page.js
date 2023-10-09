@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { Chart } from "react-chartjs-2";
 
 import {
   Chart as ChartJS,
@@ -13,11 +12,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 
 import Graph from "./graph/main";
-import HoverBox from "./graph/hover";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -29,13 +25,16 @@ ChartJS.register(
 );
 
 import AuthOptions from "../components/AuthOptions";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { getData } from "../globaldata";
 
 export default function Home() {
   const [graphHover, setGraphHover] = useState(false);
   const [reconnectionRateHover, setReconnectionRateHover] = useState(false);
   const [bzHover, setBzHover] = useState(false);
   const resData = useRouter().query;
+  // console.log(getData());
+  console.log("new-page" + localStorage.getItem("data"));
   return (
     <div className=" p-[4.722vw] r">
       <div className="text-white flex font-bold text-[1.5vw] items-center justify-between flex-row">
