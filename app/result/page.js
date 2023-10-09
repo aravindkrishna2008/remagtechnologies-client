@@ -32,6 +32,7 @@ export default function Home() {
   const [graphHover, setGraphHover] = useState(false);
   const [reconnectionRateHover, setReconnectionRateHover] = useState(false);
   const [bzHover, setBzHover] = useState(false);
+  const [maxSeverity, setMaxSeverity] = useState(0);
   const resData = useRouter().query;
   // console.log(getData());
   let data = localStorage.getItem("data");
@@ -45,7 +46,17 @@ export default function Home() {
   for (let i = 0; i < data.length; i++) {
     reconrateValues.push(data[i].reconrate);
     severityValues.push(data[i].severity / 5);
+    // setMaxSeverity(calculateMaxSeverity());
   }
+
+  const calculateMaxSeverity = () => {
+    if (severityValues.length === 0) {
+      return 0; // Return 0 if the array is empty
+    }
+    return Math.max(...severityValues); // Find the maximum value in the array
+  };
+
+  // Call the function to get the maximum severity value
 
   // useEffect(() => {
   //   reconrateValues = data.map((item) => item.reconrate);
@@ -160,7 +171,7 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-row items-end gap-2">
-              <h1 className="data-nums">-1.212</h1>
+              <h1 className="data-nums">{maxSeverity}</h1>
               <p className="text-[#666] mb-[5%] text-[1vw]">nanoTeslas</p>
             </div>
           </div>
