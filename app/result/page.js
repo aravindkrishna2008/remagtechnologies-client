@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Chart as ChartJS,
@@ -34,7 +34,25 @@ export default function Home() {
   const [bzHover, setBzHover] = useState(false);
   const resData = useRouter().query;
   // console.log(getData());
-  console.log("new-page" + localStorage.getItem("data"));
+  let data = localStorage.getItem("data");
+  data = JSON.parse(data);
+
+  let reconrateValues = [];
+  let severityValues = [];
+  // console.log("type of the data is " + JSON.parse(data)[0].reconrate);
+  // console.log(data);
+
+  for (let i = 0; i < data.length; i++) {
+    reconrateValues.push(data[i].reconrate);
+    severityValues.push(data[i].severity);
+  }
+
+  // useEffect(() => {
+  //   reconrateValues = data.map((item) => item.reconrate);
+  // }, []);
+
+  console.log(reconrateValues);
+
   return (
     <div className=" p-[4.722vw] r">
       <div className="text-white flex font-bold text-[1.5vw] items-center justify-between flex-row">
@@ -175,31 +193,6 @@ export default function Home() {
             </p>
           </div>
         )}
-        {/* <div className="gray-btn h-[18vh] w-[22.5vw] mr-[37.5vw] flex flex-col p-[2vw] pb-[2vw] ml-[80vw] -mt-[80px] justify-center">
-          <div className="flex flex-row w-[100%] gap-[2px] items-center justify-center mt-[1.6%]">
-            <img src="/magnet.png" height={100} className="w-[15%]" />
-            <h2 className="text-[#B3B3B3] text-[1.2vw] w-[100%] font-bold mb-[2.5%]">
-              Bz (IMF Magnitude)
-            </h2>
-            <img src="/question.png" height={100} className="w-[12%]" />
-          </div>
-          <HoverBox
-            opt1={
-              <div className="flex flex-row items-end gap-2">
-                <h1 className="data-nums">-1.203</h1>
-                <p className="text-[#666] mb-[5%] text-[1vw]">nanoTeslas</p>
-              </div>
-            }
-            opt2={
-              <p className="group-hover:transition group-hover:ease-in-out text-[#666] mb-[20%] text-[1vw]">
-                The vertical component of the Interplanetary Magnetic Field
-                (IMF) is typically oriented upwards when positive, but flips
-                when negative, indicating the field's strength in that
-                direction.
-              </p>
-            }
-          />
-        </div> */}
 
         <img src="/Line3.png" className="w-[18vw] -mt-[10vh] ml-[8vw]" />
         {!graphHover ? (
@@ -225,7 +218,8 @@ export default function Home() {
 
             <Graph
               className=" group-hover:transition ease-in-out h-[40%]  "
-              data2={[4, 8, 12, 16, 20, 25, 30]}
+              data2={reconrateValues}
+              data3={severityValues}
             />
           </div>
         ) : (
@@ -257,7 +251,8 @@ export default function Home() {
 
             <Graph
               className=" group-hover:transition ease-in-out h-[40%]  "
-              data2={[4, 8, 12, 16, 20, 25, 30]}
+              data2={reconrateValues}
+              data3={severityValues}
             />
           </div>
         )}

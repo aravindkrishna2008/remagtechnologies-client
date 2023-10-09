@@ -23,7 +23,7 @@ ChartJS.register(
   Legend
 );
 
-export default function Graph({ data2, className }) {
+export default function Graph({ data2, className, data3 }) {
   const options = {
     responsive: false,
     plugins: {},
@@ -42,10 +42,19 @@ export default function Graph({ data2, className }) {
     datasets: [
       {
         fill: true,
-        label: "Severity Graph",
+        label: "Recon",
         backgroundColor: "rgba(82, 120, 204, 0.2)",
         data: data2,
         borderColor: "rgba(82, 120, 204, 1)",
+      },
+
+      {
+        fill: true,
+        Selection: "false",
+        label: "Severity (0-5)",
+        data: data3,
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
